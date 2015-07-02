@@ -4,10 +4,11 @@ import sys
 from pymongo import MongoClient
 import json
 import datetime
+from Common import *
 
 
 
-aseqs = MongoClient("localhost:27020")["seqdepot"]["aseqs"]
+aseqs = seqdepotDB["aseqs"]
 
 usage = """
 Usage: $0 <database json>
@@ -16,7 +17,7 @@ Usage: $0 <database json>
 
   Loads into the aseqs collection.
 
-	$1 cross reference identifier: gi uni ENS
+	-id "TheId" cross reference identifier: gi uni ENS
 """
 
 g_File = sys.argv[1]
@@ -26,7 +27,14 @@ if '-id' in sys.argv:
 	cross = 1
 else:
 	cross = 0
-	
+
+if '--meta' in sys.argv:
+	metaFlag = 1
+else:
+	metaFlag = 0
+
+
+
 #identifier = sys.argv[2]
 if not g_File:
 	print("No input")
@@ -48,16 +56,20 @@ for line in filein:
     #my $aseq = from_json(substr($json,23));
     #print("$aseq->{_id}\n");
 	count += 1
-	if aseqs.find_one({"_id":myjson["_id"]}):
+	foundAseq = aseqs.find_one({"_id":myjson["_id"]})
+	if foundAseq:
+		addedDict = {}
+		if ((not metaFlag) and (foundAseq["m"]==1)):
+			aseqs.update({"_id":myjson["_id"]},{"$set":{"m":0}})
 		if count%10000==0:
-#			ctime = datetime.time.second
-#			timepassed = ctime-ptime
-#			ptime = ctime
 			print("\n" + str(count))
 		if cross == 1:
 			theXfield = "x." + identifier
 			for idElement in myjson["x"][identifier]:
 				aseqs.update({"_id":myjson["_id"]},{"$addToSet":{theXfield:idElement}}) 
 	else:
-		print(".")
+		#print(".")
+		if metaFlag:
+			myjson["m"] = 1
+		#print(myjson)
 		aseqs.insert(myjson)    

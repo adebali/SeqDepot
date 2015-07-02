@@ -2,7 +2,7 @@ import os
 import sys
 from pymongo import MongoClient
 
-aseqsCol = MongoClient("localhost:27020")["seqdepot"]["aseqs"]
+aseqsCol = seqdepotDB["aseqs"]
 
 
 allrecords = aseqsCol.find({},timeOut = False)

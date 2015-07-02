@@ -2,8 +2,8 @@ import os
 import sys
 from pymongo import MongoClient
 
-toolsCol = MongoClient("localhost",27020)["seqdepot"]["tools"]
-toolOrderCol =  MongoClient("localhost",27020)["seqdepot"]["toolOrder"]
+toolsCol = seqdepotDB["tools"]
+toolOrderCol =  seqdepotDB["toolOrder"]
 
 tools = toolsCol.find()
 

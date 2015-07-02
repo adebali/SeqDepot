@@ -26,16 +26,29 @@ my $aseqs = &Common::aseqs();
 &Common::startTicker(10000);
 my $count = 0;
 open(FH,"|/usr/bin/tac $g_File");
+
+my $metaFlag = grep( /--meta/, @ARGV );
+
+
 while (<FH>) {
     my $json = $_;
 #print("hey");
+print("##################################" + "\n");
 #    my $son = substr($json,23);
 #    print($son);
 #    $json = $son;
     #my $aseq = from_json(substr($json,23));
     my $aseq = from_json(substr($_,23));
     #print("$aseq->{_id}\n");
+    #print($aseq+"\n");
     if ($aseqs->find_one({_id => $aseq->{_id}})) {
+    
+	if ((!$metaFlag) && ($aseq->{'m'}==1)){
+		my %set = (
+			'm'=> 0
+			);
+		$aseqs->update({_id => $aseq->{_id}}, {'$set' => \%set});
+	}
         #print("$aseq->{_id}\n");
 	
 	#print($count++);
@@ -48,8 +61,15 @@ while (<FH>) {
 	&Common::tick();
 	next;
     }
+
     else {
-    print("$count\t$aseq->{_id}\n________________________\n");
+	# If no such record in the database
+	#print("HEYYY");
+	if ($metaFlag){
+		$aseq->{'m'}=1;
+		}
+
+    #print("$count\t$aseq->{_id}\n________________________\n");
     $count++;
     #print($aseq); 
     my $hasUndoneData = index($aseq->{_s}, '-') != -1;

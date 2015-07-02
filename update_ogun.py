@@ -23,7 +23,8 @@ JOBNAME = "SDU" + theDate
 #JOBNAME = "DENEM"
 print(JOBNAME)
 
-#os.system("./createSuperJob-v1.pl -C superjobs -t pfam27,segs,coils,agfam1,das,ecf " + JOBNAME)
+## os.system("./createSuperJob-v1.pl -C superjobs -t pfam27,segs,coils,agfam1,das,ecf " + JOBNAME)
+os.system("./createSuperJob-v1.pl -C superjobs -t pfam28,segs,coils,agfam1,das,ecf " + JOBNAME)
 #os.system("./createSuperJob-v1.pl -C superjobs -t tigrfam14 " + JOBNAME)
 
 os.system("./tarSendAndStartSuperJob.sh superjobs/" + JOBNAME)

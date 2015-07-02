@@ -30,6 +30,10 @@ foreach my $fieldName (@Common::tools) {
     ++$i;
 }
 
+#foreach my $file (sort @files){
+#	print  $file;}
+#exit 0;
+
 my $processedFiles = 0;
 chdir($g_Directory);
 my $aseqs = &Common::aseqs();

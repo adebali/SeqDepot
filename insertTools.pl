@@ -145,7 +145,13 @@ my @tools = (
      d => 'TIGRFAM 14.0 HMM resource to support automated annotation of proteins',
      h => 'TIGRFAM 14',
      f => [qw(name start stop extent bias hmm_start hmm_stop hmm_extent env_start env_stop env_extent score c_evalue i_evalue acc)],
-     hf => [qw(Name Start Stop Extent Bias), 'HMM start', 'HMM stop', 'HMM extent', 'Env start', 'Env stop', 'Env extent', 'Score', 'Cond. E-value', 'Ind. E-value', 'Acc']}
+     hf => [qw(Name Start Stop Extent Bias), 'HMM start', 'HMM stop', 'HMM extent', 'Env start', 'Env stop', 'Env extent', 'Score', 'Cond. E-value', 'Ind. E-value', 'Acc']},
+    
+    {_id => 'pfam28',
+     d => 'Pfam-A hidden Markov model database version 28.0 (May 2015, 16230 families)',
+     h => 'Pfam 28',
+     f => [qw(name start stop extent bias hmm_start hmm_stop hmm_extent env_start env_stop env_extent score c_evalue i_evalue acc)],
+     hf => [qw(Name Start Stop Extent Bias), 'HMM start', 'HMM stop', 'HMM extent', 'Env start', 'Env stop', 'Env extent', 'Score', 'Cond. E-value', 'Ind. E-value', 'Acc']},
 );
 
 $MongoDB::Cursor::timeout = -1;
