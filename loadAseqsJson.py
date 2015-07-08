@@ -71,5 +71,7 @@ for line in filein:
 		#print(".")
 		if metaFlag:
 			myjson["m"] = 1
+		else:
+			myjson["m"] = 0
 		#print(myjson)
 		aseqs.insert(myjson)    

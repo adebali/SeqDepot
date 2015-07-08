@@ -21,16 +21,24 @@ theDate = str(datetime.datetime.now()).split(' ')[0]
 JOBNAME = "SDU" + theDate
 #JOBNAME = "SDU2014-11-23"
 #JOBNAME = "DENEM"
+JOBNAME = "single"
 print(JOBNAME)
 
 ## os.system("./createSuperJob-v1.pl -C superjobs -t pfam27,segs,coils,agfam1,das,ecf " + JOBNAME)
-os.system("./createSuperJob-v1.pl -C superjobs -t pfam28,segs,coils,agfam1,das,ecf " + JOBNAME)
+#os.system("./createSuperJob-v1.pl -C superjobs -t pfam28,segs,coils,agfam1,das,ecf " + JOBNAME)
+os.system("./createSuperJob-v1.pl -C superjobs -t pfam28,segs,coils,agfam1,das,ecf " + JOBNAME + " -m 0")
 #os.system("./createSuperJob-v1.pl -C superjobs -t tigrfam14 " + JOBNAME)
 
-os.system("./tarSendAndStartSuperJob.sh superjobs/" + JOBNAME)
+
+
+
+#os.system("./tarSendAndStartSuperJob.sh superjobs/" + JOBNAME)
+
+
+
 
 code = "./watchNewtonUntilJobDone.pl " + JOBNAME + " && ./fetchSuperJobResults.sh superjobs " + JOBNAME + " && ./loadSuperJobData.pl superjobs/" + JOBNAME + "-results || exit 1"
-os.system(code)
+#os.system(code)
 
 def cleanupResults():
 	os.system("rm -rf superjobs/" + JOBNAME + "-results")
@@ -40,7 +48,7 @@ def cleanupResults():
 	os.system("rm -f superjobs/" + JOBNAME + ".log")
 	os.system("rm -f superjobs" + JOBNAME + ".err")
 
-cleanupResults()
+#cleanupResults()
 
 
 

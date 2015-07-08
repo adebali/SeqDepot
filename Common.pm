@@ -15,7 +15,8 @@ our $db;
 
 our $g_MinLen = 30;
 
-our @tools = qw(agfam1 coils das ecf gene3d hamap panther patscan pfam26 pir prints proscan segs signalp smart superfam targetp tigrfam tmhmm pfam27 tigrfam14);
+## Add a tool
+our @tools = qw(agfam1 coils das ecf gene3d hamap panther patscan pfam26 pir prints proscan segs signalp smart superfam targetp tigrfam tmhmm pfam27 tigrfam14 pfam28);
 our %toolStatusPos = ();
 my $i = 0;
 foreach my $fieldName (@tools) {
@@ -188,9 +189,9 @@ our %simapConfig = (
 
 sub client {
     if (!$client) {
-	#$client = new MongoDB::MongoClient(host => 'localhost', port => 27017, query_timeout => 9999999);
+	$client = new MongoDB::MongoClient(host => 'localhost', port => 27017, query_timeout => 9999999);
 	#For god:
-	$client = new MongoDB::MongoClient(host => 'localhost', port => 27020, query_timeout => 9999999);
+	#$client = new MongoDB::MongoClient(host => 'localhost', port => 27020, query_timeout => 9999999);
     }
     return $client;
 }
@@ -267,6 +268,7 @@ sub baseStructure {
         l => length($sequence),
         x => {},
         t => {},
+	m => 0,
         _s => &emptyStatus()
     }
 }
