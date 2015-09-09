@@ -10,6 +10,8 @@ from Common import *
 
 aseqs = seqdepotDB["aseqs"]
 
+#aseqs = seqdepotDB["testAseqs"]
+
 usage = """
 Usage: $0 <database json>
 
@@ -47,6 +49,7 @@ ptime = datetime.time
 
 filein = open(g_File,"r");
 for line in filein:
+	print(count)
 #	print(line.split('\t')[1])
 	myjson = json.loads(line.split('\t')[1])
 #print("hey");
@@ -61,8 +64,6 @@ for line in filein:
 		addedDict = {}
 		if ((not metaFlag) and (foundAseq["m"]==1)):
 			aseqs.update({"_id":myjson["_id"]},{"$set":{"m":0}})
-		if count%10000==0:
-			print("\n" + str(count))
 		if cross == 1:
 			theXfield = "x." + identifier
 			for idElement in myjson["x"][identifier]:

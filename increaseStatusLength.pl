@@ -9,6 +9,7 @@ use warnings;
 use FindBin '$Bin';
 use lib "$Bin";
 use Common;
+use Getopt::Long;
 
 my $usage = <<USAGE;
 Usage: $0 <number of slots>
@@ -24,7 +25,7 @@ Usage: $0 <number of slots>
 USAGE
 
 my $nNewSlots = shift or die $usage;
-die qq(New slots must be positive\n) if ($nNewSlots !~ /^[1-9]\d*$/);
+die qq(New slots must be positive\n) if ($nNewSlots !~ /^[0-9]\d*$/);
 
 my $tools_col = &Common::collection('tools');
 my $nTools = $tools_col->count();
@@ -32,7 +33,10 @@ my $nTools = $tools_col->count();
 my $finalLen = $nTools + $nNewSlots;
 
 $MongoDB::Cursor::timeout = -1;
-my $aseqs = &Common::collection('aseqs');
+
+my $g_colFlag = "aseqs";
+GetOptions("col=s", \$g_colFlag);
+my $aseqs = &Common::collection($g_colFlag);
 
 &Common::startTicker();
 my $cursor = $aseqs->find();

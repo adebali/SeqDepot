@@ -19,6 +19,9 @@ theDate = str(datetime.datetime.now()).split(' ')[0]
 JOBNAME = "SDU" + theDate
 print(JOBNAME)
 
+col = "aseqs"
+col = "testAseqs"
+
 #os.system("./createSuperJob-v1.pl -C superjobs -t pfam27,segs,coils,agfam1,das,ecf,tigrfam14 " + JOBNAME + " ||exit 1")
 
 

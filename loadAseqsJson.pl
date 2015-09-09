@@ -19,7 +19,11 @@ Usage: $0 <database json>
 USAGE
 
 my $g_File = shift or die $usage;
-my $aseqs = &Common::aseqs();
+
+my $g_colFlag = "aseqs";
+GetOptions("col=s", \$g_colFlag);
+
+my $aseqs = &Common::aseqs($g_colFlag);
 
 #my $fh = &Common::openFileOrGzFile($g_File);
 

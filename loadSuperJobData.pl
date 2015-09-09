@@ -6,7 +6,7 @@ use strict;
 use warnings;
 use Data::Dumper;
 use JSON;
-
+use Getopt::Long;
 use FindBin '$Bin';
 use lib "$Bin";
 use Common;
@@ -18,6 +18,9 @@ USAGE
 
 my $g_Directory = shift or die $usage;
 $g_Directory .= '/' if ($g_Directory !~ /\/$/);
+
+my $g_colFlag = "aseqs";
+GetOptions("col=s", \$g_colFlag);
 
 my @files = @{ &readResultFiles($g_Directory) };
 
@@ -36,7 +39,7 @@ foreach my $fieldName (@Common::tools) {
 
 my $processedFiles = 0;
 chdir($g_Directory);
-my $aseqs = &Common::aseqs();
+my $aseqs = &Common::aseqs($g_colFlag);
 foreach my $file (sort @files) {
     print STDERR '-'x60, "\n";
     if ($file =~ /^\d+\.errors$/) {

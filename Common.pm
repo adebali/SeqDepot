@@ -16,7 +16,7 @@ our $db;
 our $g_MinLen = 30;
 
 ## Add a tool
-our @tools = qw(agfam1 coils das ecf gene3d hamap panther patscan pfam26 pir prints proscan segs signalp smart superfam targetp tigrfam tmhmm pfam27 tigrfam14 pfam28);
+our @tools = qw(agfam1 coils das ecf gene3d hamap panther patscan pfam26 pir prints proscan segs signalp smart superfam targetp tigrfam tmhmm pfam27 tigrfam14 pfam28 tigrfam15);
 our %toolStatusPos = ();
 my $i = 0;
 foreach my $fieldName (@tools) {
@@ -208,8 +208,13 @@ sub collection {
     return &database()->get_collection($name);
 }
 
-sub aseqs {
-    return &database()->get_collection('aseqs');
+sub aseqs{
+    #return &database()->get_collection('aseqs');
+    my $collectionName = 'aseqs';
+    if ($_[0]){
+    	$collectionName = $_[0];
+	}
+    return &database()->get_collection($collectionName);
 }
 
 sub isValidTool {

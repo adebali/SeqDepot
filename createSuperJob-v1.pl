@@ -36,12 +36,14 @@ my $g_Tools;
 my $g_BatchSize;
 my $g_NumBatches;
 my $g_metaFlag;
+my $g_colFlag = "aseqs";
 
 GetOptions("C|directory=s", \$g_Directory,
            "n|number-of-batches=i", \$g_NumBatches,
            "s|batch-size=i", \$g_BatchSize,
            "t|tools=s", \$g_Tools,
-           "m|metaFlag=i", \$g_metaFlag);
+           "m|metaFlag=i", \$g_metaFlag,
+           "col|colFlag=s", \$g_colFlag);
 
 
 
@@ -93,7 +95,8 @@ else {
 
 # --------------------------------------------------------------------------------------------------------------------
 # Also tests the connection because it will die if it cannot connect
-my $aseqs = &Common::aseqs();
+my $aseqs = &Common::aseqs($g_colFlag);
+	
 
 # --------------------------------------------------------------------------------------------------------------------
 # Minor setup
@@ -126,7 +129,8 @@ if ($g_metaFlag){
 	#print("metaFlag\n");
 	} else {
 	#print("No MetaFlag\n");
-	$cursor = $aseqs->find({ _id => 'CFuX83oc9Sj5rtEXC_nMZA' });
+	$cursor = $aseqs->find({ _s => {'$not' => qr/^$doneStatusRegex/} });
+	#$cursor = $aseqs->find({ _id => 'CFuX83oc9Sj5rtEXC_nMZA' });
 	#$cursor = $aseqs->find({ _s => {'$not' => qr/^$doneStatusRegex/}, m => 0 });
 	}
 #my $cursor = $aseqs->find({ _id => 'CFuX83oc9Sj5rtEXC_nMZA' });
