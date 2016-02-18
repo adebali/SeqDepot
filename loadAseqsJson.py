@@ -7,11 +7,6 @@ import datetime
 from Common import *
 
 
-
-aseqs = seqdepotDB["aseqs"]
-
-#aseqs = seqdepotDB["testAseqs"]
-
 usage = """
 Usage: $0 <database json>
 
@@ -23,6 +18,14 @@ Usage: $0 <database json>
 """
 
 g_File = sys.argv[1]
+
+if '-col' in sys.argv:
+	col = sys.argv[sys.argv.index('-col') + 1]
+else:
+	print("-col not given")
+	sys.exit()
+
+aseqs = seqdepotDB[col]
 
 if '-id' in sys.argv:
 	identifier = sys.argv[sys.argv.index('-id') + 1]
@@ -49,7 +52,6 @@ ptime = datetime.time
 
 filein = open(g_File,"r");
 for line in filein:
-	print(count)
 #	print(line.split('\t')[1])
 	myjson = json.loads(line.split('\t')[1])
 #print("hey");
@@ -61,14 +63,16 @@ for line in filein:
 	count += 1
 	foundAseq = aseqs.find_one({"_id":myjson["_id"]})
 	if foundAseq:
+		#print(foundAseq["_id"])
 		addedDict = {}
-		if ((not metaFlag) and (foundAseq["m"]==1)):
-			aseqs.update({"_id":myjson["_id"]},{"$set":{"m":0}})
+		#if ((not metaFlag) and ('m' in foundAseq.keys()) and (foundAseq["m"]==1)):
+		#	aseqs.update({"_id":myjson["_id"]},{"$set":{"m":0}})
 		if cross == 1:
 			theXfield = "x." + identifier
 			for idElement in myjson["x"][identifier]:
 				aseqs.update({"_id":myjson["_id"]},{"$addToSet":{theXfield:idElement}}) 
 	else:
+		print(count)
 		#print(".")
 		if metaFlag:
 			myjson["m"] = 1

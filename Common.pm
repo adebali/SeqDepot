@@ -16,7 +16,7 @@ our $db;
 our $g_MinLen = 30;
 
 ## Add a tool
-our @tools = qw(agfam1 coils das ecf gene3d hamap panther patscan pfam26 pir prints proscan segs signalp smart superfam targetp tigrfam tmhmm pfam27 tigrfam14 pfam28 tigrfam15);
+our @tools = qw(agfam1 coils das ecf gene3d hamap panther patscan pfam26 pir prints proscan segs signalp smart superfam targetp tigrfam tmhmm pfam27 tigrfam14 pfam28 tigrfam15 pfam29);
 our %toolStatusPos = ();
 my $i = 0;
 foreach my $fieldName (@tools) {

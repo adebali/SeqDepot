@@ -129,9 +129,9 @@ if ($g_metaFlag){
 	#print("metaFlag\n");
 	} else {
 	#print("No MetaFlag\n");
-	$cursor = $aseqs->find({ _s => {'$not' => qr/^$doneStatusRegex/} });
+	#$cursor = $aseqs->find({ _s => {'$not' => qr/^$doneStatusRegex/} });
 	#$cursor = $aseqs->find({ _id => 'CFuX83oc9Sj5rtEXC_nMZA' });
-	#$cursor = $aseqs->find({ _s => {'$not' => qr/^$doneStatusRegex/}, m => 0 });
+	$cursor = $aseqs->find({ _s => {'$not' => qr/^$doneStatusRegex/}, m => {'$ne' => 1 }});
 	}
 #my $cursor = $aseqs->find({ _id => 'CFuX83oc9Sj5rtEXC_nMZA' });
 #my $cursor = $aseqs->find({ _id => '---OggegDeUFPNveg_YZwQ', m => 1 });

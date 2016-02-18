@@ -49,7 +49,8 @@ echo "Securely sending $TARBALL to Newton"
 scp $TARBALL $MD5_FILE newton:$SEQDEPOT/jobs
 
 echo "Starting job on Newton"
-ssh newton "nohup $SEQDEPOT/scripts/launchJob.pl $JOB_NAME > $SEQDEPOT/jobs/$JOB_NAME.log 2> $SEQDEPOT/jobs/$JOB_NAME.err < /dev/null &"
+#ssh newton "nohup $SEQDEPOT/scripts/launchJob.pl $JOB_NAME > $SEQDEPOT/jobs/$JOB_NAME.log 2> $SEQDEPOT/jobs/$JOB_NAME.err < /dev/null &"
+ssh newton "nohup $SEQDEPOT/scripts/launchJob.pl $JOB_NAME > $SEQDEPOT/jobs/$JOB_NAME.log 2> $SEQDEPOT/jobs/$JOB_NAME.err &"
 
 echo "Cleaning up"
 rm -rf $JOB_NAME
